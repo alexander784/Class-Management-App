@@ -40,7 +40,7 @@ class Content(db.Model):
     title = db.Column(db.String)
     resource = db.Column(db.String)
 
-class Attendance(db.Model):
+class Attendance(db.Model,SerializerMixin):
 
     __tablename__  = "attendances"
 

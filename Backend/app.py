@@ -1,5 +1,5 @@
 from flask import Flask,request,Response,make_response
-from models import db, User,UserAttendance,Usersubject,Subject,Content
+from models import db, User,UserAttendance,Usersubject,Subject,Content,Attendance
 from flask_migrate import Migrate
 
 
@@ -44,7 +44,11 @@ def users():
     
             
 
-    
+@app.route('/user/attendance', methods=['GET','POST'])
+def attendance():
+    attendances=[attendance.to_dict() for attendance in Attendance.query.all() ]    
+    return make_response(attendances,200)
+
 
 
 
