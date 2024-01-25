@@ -1,4 +1,4 @@
-from flask import Flask,request,Response,make_response
+from flask import Flask,request,Response,make_response, jsonify
 from models import db, User,UserSubject,Subject,Grade,Schedule,Message
 from flask_migrate import Migrate
 
@@ -31,15 +31,23 @@ def users():
 
         return make_response(users, 200)
     elif request.method == "POST":
-        newuser = User(username=request.form.get("name"),
+        newuser = User(username=request.form.get("username"),
                        password=request.form.get ("password"),
-                       isInstructor=bool(request.form.get("IsInstructor")),
-                       useremail=request.form.get("useremail"))
+                       is_instructor=bool(request.form.get("IsInstructor")),
+                       email=request.form.get("useremail"),
+                       name=request.form.get('name'))
         
         db.session.add(newuser)
         db.session.commit()
 
         return make_response({"message":"Created successfully"},201)
+    
+    
+@app.route('/subjects',methods=['GET','POST'])
+def subjects():
+    if request.method == 'GET':
+        subjects = [subject.to_dict() for subject in Subject.query.all()]
+        return jsonify(subjects), 200
     
     
             
