@@ -48,6 +48,7 @@ def subjects():
     if request.method == 'GET':
         subjects = [subject.to_dict() for subject in Subject.query.all()]
         return jsonify(subjects), 200
+
     
     
             
