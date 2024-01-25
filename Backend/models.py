@@ -8,15 +8,16 @@ db = SQLAlchemy()
 ## Define Models
 
 class User(db.Model, SerializerMixin):
-
+      
     __tablename__  = "users"
 
-
-    id = db.Column(db.Integer,primary_key=True)
-    username = db.Column(db.String)
-    useremail = db.Column(db.String)
-    password =db.Column(db.String)
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50), nullable=False)
+    username = db.Column(db.String(20), unique=True, nullable=False)
+    email = db.Column(db.String(120), unique=True, nullable=False)
+    password = db.Column(db.String(60), nullable=False)
     is_instructor = db.Column(db.Boolean, default=False)
+    subjects = db.relationship('Subject', secondary="user_subjects", backref=db.backref('students', lazy='dynamic'))
 
 
     ##Relationships
@@ -33,7 +34,25 @@ class Subject(db.Model):
     code = db.Column(db.String)
     year = db.Column(db.Integer)
     compulsory = db.Column(db.Boolean)
-    addedby = db.Column(db.Integer,db.ForeignKey("users.id"))
+    addedby = db.Column(db.Integer,db.ForeignKey("user.id"),nullable = False)
+## Implement Methods
+    def get_student_subjects(self):
+        if not self.is_instructor:
+            return self.subjects.all()
+        else:
+            return []
+
+    def get_instructor_subjects(self):
+        if self.is_instructor:
+            return Subject.query.filter_by(added_by_id=self.id).all()
+        else:
+            return []
+        
+class UserSubject(db.Model):
+    __tablename__='user_subjects'
+    
+    user_id=db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
+    subject_id=db.Column(db.Integer, db.ForeignKey('subject.id'), primary_key=True)
 
 class Message(db.Model):
 
@@ -52,6 +71,7 @@ class schedule(db.Model):
      day = db.Column(db.String, nullable=False)
      time = db.Column(db.Integer, nullable=False)
      Subject = db.Column(db.String, default="free")
+
 
 
      
