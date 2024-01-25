@@ -97,7 +97,18 @@ def subject_by_id(id):
     else:
         if request.method == 'GET':
             return make_response(subject.to_dict(), 200)
-        
+        elif request.method == 'PATCH':
+             
+            #  for attr in request.form:
+            #      setattr(subject, attr, request.form.get(attr))
+            #  db.session.commit()
+          
+             return make_response(subject.to_dict(), 200) 
+        elif request.method == 'DELETE':
+            db.session.delete(subject)
+            db.session.commit()
+            
+            return make_response({"message":"Deleted succesfuly"}, 200)
               
         
         
