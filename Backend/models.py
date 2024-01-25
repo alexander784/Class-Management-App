@@ -7,7 +7,7 @@ db = SQLAlchemy()
 
 ## Define Models
 
-class User(db.Model, SerializerMixin):
+class User(db.Model):
       
     __tablename__  = "users"
 
@@ -17,10 +17,9 @@ class User(db.Model, SerializerMixin):
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(60), nullable=False)
     is_instructor = db.Column(db.Boolean, default=False)
+
+##Relationships
     subjects = db.relationship('Subject', secondary="user_subjects", backref=db.backref('students', lazy='dynamic'))
-
-
-    ##Relationships
     schedule = db.relationship("schedule", backref="user", lazy= True )
     message = db.relationship("message", backref= "added_by", lazy= True)
     subjects = db.relationship('Subject', backref='added_by', lazy=True)
@@ -29,12 +28,13 @@ class User(db.Model, SerializerMixin):
 class Subject(db.Model):
 
     __tablename__  = "subjects"
+
     id = db.Column(db.Integer,primary_key=True)
     name = db.Column(db.String)
     code = db.Column(db.String)
     year = db.Column(db.Integer)
     compulsory = db.Column(db.Boolean)
-    addedby = db.Column(db.Integer,db.ForeignKey("user.id"),nullable = False)
+    addedby = db.Column(db.Integer,db.ForeignKey("users.id"),nullable = False)
 ## Implement Methods
     def get_student_subjects(self):
         if not self.is_instructor:
@@ -49,28 +49,44 @@ class Subject(db.Model):
             return []
         
 class UserSubject(db.Model):
-    __tablename__='user_subjects'
-    
-    user_id=db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
-    subject_id=db.Column(db.Integer, db.ForeignKey('subject.id'), primary_key=True)
+    __tablename__='usersubjects'
+
+    id = db.Column(db.Integer, primary_key=True)
+    user_id=db.Column(db.Integer, db.ForeignKey('users.id'))
+    subject_id=db.Column(db.Integer, db.ForeignKey('subjects.id'))
+
+    grade = db.relationship('Grade', backref='grades.id', lazy=True)
+
 
 class Message(db.Model):
 
     __tablename__  = "messages"
 
-    id = db.column(db.Integer, primary_key=True)
-    username = db.Column(db.String,)
+    id = db.Column(db.Integer, primary_key=True)
     addedby = db.Column(db.Integer,db.ForeignKey("users.id"))
+    to = db.Column(db.Integer)
+    content = db.Column(db.String)
+    
 
 
-class schedule(db.Model):
+class Schedule(db.Model):
 
      __tablename__  = "schedules"
 
-     id = db.column(db.Integer, primary_key=True)
+     id = db.Column(db.Integer, primary_key=True)
      day = db.Column(db.String, nullable=False)
      time = db.Column(db.Integer, nullable=False)
      Subject = db.Column(db.String, default="free")
+
+
+class Grade(db.Model):
+    __tablename__ = 'grades'
+
+    id = db.Column(db.Integer, primary_key=True)
+    # student_id = db.Column(db.Integer, db.ForeignKey('students.id'), nullable=False)
+    usersubject = db.Column(db.Integer, db.ForeignKey('usersubjects.id'), nullable=False)
+    grade = db.Column(db.String(5) , nullable=True )
+    created_at = db.Column(db.DateTime() , nullable=False , default=db.func.now)
 
 
 

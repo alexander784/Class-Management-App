@@ -1,5 +1,5 @@
 from flask import Flask,request,Response,make_response
-from models import db, User,UserAttendance,Usersubject,Subject,Content
+from models import db, User,UserSubject,Subject,Grade,Schedule,Message
 from flask_migrate import Migrate
 
 
