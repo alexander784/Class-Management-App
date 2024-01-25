@@ -45,9 +45,73 @@ def users():
     
 @app.route('/subjects',methods=['GET','POST'])
 def subjects():
-    if request.method == 'GET':
-        subjects = [subject.to_dict() for subject in Subject.query.all()]
-        return make_response(jsonify(subjects), 200)
+    
+      if request.method == 'GET':
+          subjects = [subject.to_dict() for subject in Subject.query.all()]
+          return make_response(jsonify(subjects), 200)
+      
+      elif request.method == 'POST':
+          try:
+        #   newSubject=Subject(name=request.form.get('name'),
+        #                      code=request.form.get('code'),
+        #                      year=int(request.form.get('year')),
+        #                      compulsory=bool(request.form.get('compulsory')),
+        #                      added_by=int(request.form.get('added_by')))
+        
+              name = request.form.get('name')
+              code = request.form.get('code')
+              year = int(request.form.get('year'))
+              compulsory = bool(request.form.get('compulsory'))
+              added_by_id = int(request.form.get('added_by'))
+              
+              # Check if the user exists
+              added_by_user = User.query.get(added_by_id)
+              if not added_by_user:
+                  return jsonify({"error": "User not found"}), 404
+  
+              new_subject = Subject(
+                  name=name,
+                  code=code,
+                  year=year,
+                  compulsory=compulsory,
+                  addedby=added_by_id
+              )
+  
+              db.session.add(new_subject)
+              db.session.commit()
+  
+              return make_response(new_subject.to_dict(), 201)
+       
+      
+          except ValueError as e:
+              return jsonify({"error": "Invalid data format"}), 400
+          except Exception as e:
+              return jsonify({"error": str(e)}), 500      
+          
+@app.route('/subjects/<int:id>',methods=['PATCH','GET','DELETE'])
+def subject_by_id(id):
+    subject= Subject.query.filter(Subject.id == id).first()
+    if not subject:
+        response_body = {"error": "subject not found"}
+        return make_response(response_body, 404)
+    else:
+        if request.method == 'GET':
+            return make_response(subject.to_dict(), 200)
+        elif request.method == 'PATCH':
+            data = request.json
+            for field in ['year', 'compulsory']:
+                if field in data:
+                    setattr(subject, field, data[field])
+            db.session.commit()
+            return make_response(jsonify({'message': 'Subject updated successfully'}), 201)
+        elif request.method == 'DELETE':
+            db.session.delete(subject)
+            db.session.commit()
+            
+            return make_response({"message":"Deleted succesfuly"}, 200)
+              
+        
+        
     
 @app.route('/schedule', methods=['POST'])
 def create_schedule():

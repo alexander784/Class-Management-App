@@ -37,6 +37,17 @@ class Subject(db.Model, SerializerMixin):
     year = db.Column(db.Integer)
     compulsory = db.Column(db.Boolean)
     addedby = db.Column(db.Integer,db.ForeignKey("users.id"),nullable = False)
+    
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'code': self.code,
+            'year': self.year,
+            'compulsory': self.compulsory,
+            'addedby': self.addedby,
+           
+        }
 ## Implement Methods
     def get_student_subjects(self):
         if not self.is_instructor:
@@ -49,6 +60,7 @@ class Subject(db.Model, SerializerMixin):
             return Subject.query.filter_by(added_by_id=self.id).all()
         else:
             return []
+        
         
 class UserSubject(db.Model):
     __tablename__='usersubjects'
