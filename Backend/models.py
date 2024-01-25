@@ -1,5 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy_serializer import SerializerMixin
+from alembic import op
+import sqlalchemy as sa
 
 
 db = SQLAlchemy()
@@ -7,7 +9,7 @@ db = SQLAlchemy()
 
 ## Define Models
 
-class User(db.Model):
+class User(db.Model,SerializerMixin):
       
     __tablename__  = "users"
 
@@ -19,13 +21,13 @@ class User(db.Model):
     is_instructor = db.Column(db.Boolean, default=False)
 
 ##Relationships
-    subjects = db.relationship('Subject', secondary="user_subjects", backref=db.backref('students', lazy='dynamic'))
-    schedule = db.relationship("schedule", backref="user", lazy= True )
-    message = db.relationship("message", backref= "added_by", lazy= True)
-    subjects = db.relationship('Subject', backref='added_by', lazy=True)
+    added_subjects = db.relationship('Subject', backref='added_by', lazy=True)
+    enrolled_subjects = db.relationship('Subject', secondary="usersubjects", backref=db.backref('students', lazy='dynamic'))
+    schedules = db.relationship("Schedule", backref="user", lazy=True, foreign_keys="Schedule.user_id")
+    messages = db.relationship("Message", backref="added_by", lazy=True)
 
 
-class Subject(db.Model):
+class Subject(db.Model, SerializerMixin):
 
     __tablename__  = "subjects"
 
@@ -76,7 +78,8 @@ class Schedule(db.Model):
      id = db.Column(db.Integer, primary_key=True)
      day = db.Column(db.String, nullable=False)
      time = db.Column(db.Integer, nullable=False)
-     Subject = db.Column(db.String, default="free")
+     Subject = db.Column(db.String, default="free")     
+     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
 
 
 class Grade(db.Model):
@@ -90,11 +93,7 @@ class Grade(db.Model):
 
 
 
-     
-
-
-
-     
+    
 
 
 
