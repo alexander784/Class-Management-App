@@ -40,18 +40,7 @@ def users():
         db.session.commit()
 
         return make_response({"message":"Created successfully"},201)
-    
-    
-            
-
-    
-
-
-
-
-
-
-
+       
 if __name__ == "__main__":
     app.run(debug=True)
 
