@@ -98,12 +98,12 @@ def subject_by_id(id):
         if request.method == 'GET':
             return make_response(subject.to_dict(), 200)
         elif request.method == 'PATCH':
-             
-            #  for attr in request.form:
-            #      setattr(subject, attr, request.form.get(attr))
-            #  db.session.commit()
-          
-             return make_response(subject.to_dict(), 200) 
+            data = request.json
+            for field in ['year', 'compulsory']:
+                if field in data:
+                    setattr(subject, field, data[field])
+            db.session.commit()
+            return make_response(jsonify({'message': 'Subject updated successfully'}), 201)
         elif request.method == 'DELETE':
             db.session.delete(subject)
             db.session.commit()
