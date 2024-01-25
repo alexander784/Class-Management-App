@@ -78,7 +78,7 @@ class Schedule(db.Model):
      id = db.Column(db.Integer, primary_key=True)
      day = db.Column(db.String, nullable=False)
      time = db.Column(db.Integer, nullable=False)
-     Subject = db.Column(db.String, default="free")     
+     subject = db.Column(db.String, default="free")     
      user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
 
 

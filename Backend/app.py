@@ -47,7 +47,55 @@ def users():
 def subjects():
     if request.method == 'GET':
         subjects = [subject.to_dict() for subject in Subject.query.all()]
-        return jsonify(subjects), 200
+        return make_response(jsonify(subjects), 200)
+    
+@app.route('/schedule', methods=['POST'])
+def create_schedule():
+    data = request.json 
+
+    if not all(field in data for field in ['day', 'time', 'subject', 'user_id']):
+        return make_response(jsonify({'message': 'Missing required fields'}), 400)
+
+    new_schedule = Schedule(
+        day=data['day'],
+        time=data['time'],
+        subject=data['subject'],
+        user_id=data['user_id'],
+    )
+
+    db.session.add(new_schedule)
+    db.session.commit()
+
+    return make_response(jsonify({'message': 'Schedule created successfully', 'id': new_schedule.id}), 201)
+    
+@app.route('/schedule', methods=['GET'])
+def get_schedule():
+    schedules = Schedule.query.all()
+    schedules_list = [{'id': schedule.id, 'day': schedule.day, 'time': schedule.time,
+                        'subject': schedule.subject} for schedule in schedules]
+    return make_response(jsonify(schedules_list), 200)
+
+@app.route('/schedule/<int:id>', methods=['GET', 'PATCH', 'DELETE'])
+def manage_schedule(id):
+    schedule = Schedule.query.filter_by(id=id).first()
+    
+    if not schedule:
+        return make_response(jsonify({'message': 'Schedule not found'}), 404)
+
+    if request.method == 'GET':
+        return make_response(jsonify({'id': schedule.id, 'day': schedule.day, 'time': schedule.time, 'subject': schedule.subject}), 200)
+    elif request.method == 'PATCH':
+        data = request.json  
+        for field in ['day', 'time', 'subject']:
+            if field in data:
+                setattr(schedule, field, data[field])
+        db.session.commit()
+        return make_response(jsonify({'message': 'Schedule updated successfully'}), 201)
+    elif request.method == 'DELETE':
+        db.session.delete(schedule)
+        db.session.commit()
+        return make_response(jsonify({'message': 'Schedule deleted successfully'}), 200)
+
     
     
             
