@@ -1,4 +1,4 @@
-from flask import Flask,request,Response,make_response
+from flask import Flask,request,Response,make_response, jsonify
 from models import db, User,UserSubject,Subject,Grade,Schedule,Message
 from flask_migrate import Migrate
 
@@ -41,8 +41,29 @@ def users():
 
         return make_response({"message":"Created successfully"},201)
     
-    
-            
+@app.route('/schedule', methods=['GET'])
+def get_schedule():
+    schedules = Schedule.query.all()
+    schedules_list = [{'id': schedule.id, 'day': schedule.day, 'time': schedule.time,
+                        'subject': schedule.subject} for schedule in schedules]
+    return make_response(jsonify(schedules_list), 200)
+
+@app.route('schedule/<int:id>', methods=['GET', 'PATCH', 'DELETE'])
+def manage_schedule(id):
+    schedule = Schedule.query.filter_by(id=id).first()
+    if not schedule:
+        return make_response(jsonify({'message':'Schedule not found'}))
+    else:
+        if request.method == 'GET':
+            return make_response(jsonify({'id': schedule.id, 'day': schedule.day, 'time': schedule.time, 'subject': schedule.subject}), 200)
+        elif request.method == 'PUT':
+            db.session.commit()
+            return make_response(jsonify({'message': 'Schedule updated successfully'}), 201)
+        elif request.method == 'DELETE':
+            db.session.delete(schedule)
+            db.session.commit()
+            return make_response(jsonify({'message': 'Schedule deleted successfully'}), 200)
+
 
     
 
