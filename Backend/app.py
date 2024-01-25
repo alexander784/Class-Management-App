@@ -87,6 +87,17 @@ def subjects():
               return jsonify({"error": "Invalid data format"}), 400
           except Exception as e:
               return jsonify({"error": str(e)}), 500      
+          
+@app.route('/subjects/<int:id>',methods=['PATCH','GET','DELETE'])
+def subject_by_id(id):
+    subject= Subject.query.filter(Subject.id == id).first()
+    if not subject:
+        response_body = {"error": "subject not found"}
+        return make_response(response_body, 404)
+    else:
+        if request.method == 'GET':
+            return make_response(subject.to_dict(), 200)
+        
               
         
         
