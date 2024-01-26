@@ -5,15 +5,12 @@ import './dashboard.css';
 import { Route, Routes } from 'react-router-dom';
 import SubjectsTbl from '../student-subjects/SubjectsTbl';
 import { Link } from 'react-router-dom';
+import RegisterSubject from '../RegisterSubject/RegisterSubject';
 
 const Dashboard = () => {
     return (
         <>
-            <Routes>
-                <Route path='/dashboard' element={<Dashboard />} />
-                <Route path='/subjects' element={<SubjectsTbl />} />
-                <Route path='/register-subjects' element={<SubjectsTbl />} />
-            </Routes>
+
 
             <div>
                 <div className='dashboard'>
@@ -44,12 +41,15 @@ const Dashboard = () => {
                                 <Link to='/grades'><button>GRADES</button></Link>
                                 <Link to='/messages'><button>MESSAGES</button></Link>
                                 <Link to='/schedule'><button>SCHEDULE</button></Link>
-                               
+
                             </div>
 
                         </aside>
                         <div className='content'>
-                           
+                            <Routes>                                
+                                <Route path='/subjects' element={<SubjectsTbl />} />
+                                <Route path='/register-subjects' element={<RegisterSubject />} />
+                            </Routes>
                         </div>
 
 

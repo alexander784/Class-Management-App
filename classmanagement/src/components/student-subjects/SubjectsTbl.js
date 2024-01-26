@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './subjectsTbl.css'
+import RegisterSubject from '../RegisterSubject/RegisterSubject';
 
 const SubjectsTbl = () => {
 
@@ -63,7 +64,7 @@ const SubjectsTbl = () => {
         },
     ];
 
-    function handleDrop(id){
+    function handleDrop(id) {
 
     }
 
@@ -76,7 +77,7 @@ const SubjectsTbl = () => {
             <div className='content'>
                 <div className='table-head'>
                     <p>Your Subjects</p>
-                    <div className='table-buttons'> <button>Register Subjects</button></div>
+                    <div className='table-buttons'> <Link to='/register-subjects'><button>Register Subjects</button></Link></div>
                 </div>
                 <table>
                     <thead>
