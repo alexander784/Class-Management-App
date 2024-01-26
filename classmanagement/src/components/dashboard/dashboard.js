@@ -36,7 +36,8 @@ const Dashboard = () => {
                     <div className='dash-content'>
                         <aside>
                             <div className='button-list'>
-                                <button>DASHBOARD</button>
+
+                                <Link to='/'><button>DASHBOARD</button></Link>
                                 <Link to='/subjects'><button>SUBJECTS</button></Link>
                                 <Link to='/grades'><button>GRADES</button></Link>
                                 <Link to='/messages'><button>MESSAGES</button></Link>
@@ -46,7 +47,7 @@ const Dashboard = () => {
 
                         </aside>
                         <div className='content'>
-                            <Routes>                                
+                            <Routes>
                                 <Route path='/subjects' element={<SubjectsTbl />} />
                                 <Route path='/register-subjects' element={<RegisterSubject />} />
                             </Routes>

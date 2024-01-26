@@ -5,9 +5,9 @@ import './RegisterSubject.css'
 const RegisterSubject = () => {
 
     const subjects = [
-        { id: 1, name: 'Mathematics', code: 'MAT101', lecturer: 'Dr. Smith', year: 2022 },
-        { id: 2, name: 'Computer Science', code: 'CSC202', lecturer: 'Prof. Johnson', year: 2022 },
-        { id: 3, name: 'Physics', code: 'PHY303', lecturer: 'Dr. Davis', year: 2022 },
+        { id: 1, name: 'Mathematics', code: 'MAT101', lecturer: 'Dr. Smith', year: 2 },
+        { id: 2, name: 'Computer Science', code: 'CSC202', lecturer: 'Prof. Johnson', year: 1 },
+        { id: 3, name: 'Physics', code: 'PHY303', lecturer: 'Dr. Davis', year: 3 },
 
     ];
 
