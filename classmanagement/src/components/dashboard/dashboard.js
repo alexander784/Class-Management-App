@@ -27,7 +27,16 @@ const Dashboard = () => {
                     </div>
                 </header>
                 <div className='dash-content'>
-                    <aside></aside>
+                    <aside>
+                        <div className='button-list'>
+                            <button>DASHBOARD</button>
+                            <button>SUBJECTS</button>
+                            <button>GRADES</button>
+                            <button>MESSAGES</button>
+                            <button>SCHEDULE</button>
+                        </div>
+
+                    </aside>
                     <div className='content'>
                     </div>
 
