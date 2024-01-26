@@ -1,52 +1,64 @@
 import React from 'react';
-import SchoolLogo from '../../images/SchoolLogo.png'
-import profile from '../../images/profile.svg'
-import './dashboard.css'
-import SubjectsTbl from '../student-subjects/subjectsTbl';
+import SchoolLogo from '../../images/SchoolLogo.png';
+import profile from '../../images/profile.svg';
+import './dashboard.css';
+import { Route, Routes } from 'react-router-dom';
+import SubjectsTbl from '../student-subjects/SubjectsTbl';
+import { Link } from 'react-router-dom';
 
 const Dashboard = () => {
     return (
-        <div>
-            <div className='dashboard'>
-                <header>
-                    <div className='logo'>
-                        <img src={SchoolLogo} alt='school-logo' />
-                    </div>
-                    <div className='nav-content'>
+        <>
+            <Routes>
+                <Route path='/dashboard' element={<Dashboard />} />
+                <Route path='/subjects' element={<SubjectsTbl />} />
+                <Route path='/register-subjects' element={<SubjectsTbl />} />
+            </Routes>
 
-                        <p>Moringa School</p>
+            <div>
+                <div className='dashboard'>
+                    <header>
+                        <div className='logo'>
+                            <img src={SchoolLogo} alt='school-logo' />
+                        </div>
+                        <div className='nav-content'>
 
-                        <div className='user-prof-log'>
-                            <p>Hi, <span>current_user</span></p>
-                            <div className='logout'>
-                                <img src={profile} alt='profile' />
-                                <button>Log Out</button>
+                            <p>Moringa School</p>
+
+                            <div className='user-prof-log'>
+                                <p>Hi, <span>current_user</span></p>
+                                <div className='logout'>
+                                    <img src={profile} alt='profile' />
+                                    <button>Log Out</button>
+                                </div>
+
                             </div>
 
                         </div>
+                    </header>
+                    <div className='dash-content'>
+                        <aside>
+                            <div className='button-list'>
+                                <button>DASHBOARD</button>
+                                <Link to='/subjects'><button>SUBJECTS</button></Link>
+                                <Link to='/grades'><button>GRADES</button></Link>
+                                <Link to='/messages'><button>MESSAGES</button></Link>
+                                <Link to='/schedule'><button>SCHEDULE</button></Link>
+                               
+                            </div>
 
-                    </div>
-                </header>
-                <div className='dash-content'>
-                    <aside>
-                        <div className='button-list'>
-                            <button>DASHBOARD</button>
-                            <button>SUBJECTS</button>
-                            <button>GRADES</button>
-                            <button>MESSAGES</button>
-                            <button>SCHEDULE</button>
+                        </aside>
+                        <div className='content'>
+                           
                         </div>
 
-                    </aside>
-                    <div className='content'>
-                        <SubjectsTbl />
+
                     </div>
-
-
                 </div>
-            </div>
 
-        </div>
+            </div>
+        </>
+
     );
 }
 
