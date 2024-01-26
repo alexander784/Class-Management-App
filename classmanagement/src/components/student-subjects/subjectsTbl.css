@@ -1,0 +1,18 @@
+
+.table-head{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.content{
+    padding: 10px 100px;
+    color: black;
+}
+thead{
+    font-family:  Arial, sans-serif;
+    font-weight: 200;
+}
+.table-head p{
+    color:black;
+}

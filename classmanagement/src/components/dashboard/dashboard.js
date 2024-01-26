@@ -2,6 +2,7 @@ import React from 'react';
 import SchoolLogo from '../../images/SchoolLogo.png'
 import profile from '../../images/profile.svg'
 import './dashboard.css'
+import SubjectsTbl from '../student-subjects/subjectsTbl';
 
 const Dashboard = () => {
     return (
@@ -12,9 +13,9 @@ const Dashboard = () => {
                         <img src={SchoolLogo} alt='school-logo' />
                     </div>
                     <div className='nav-content'>
-                        
-                            <p>Moringa School</p>
-                       
+
+                        <p>Moringa School</p>
+
                         <div className='user-prof-log'>
                             <p>Hi, <span>current_user</span></p>
                             <div className='logout'>
@@ -38,6 +39,7 @@ const Dashboard = () => {
 
                     </aside>
                     <div className='content'>
+                        <SubjectsTbl />
                     </div>
 
 
