@@ -10,6 +10,8 @@ db = SQLAlchemy()
 ## Define Models
 
 class User(db.Model,SerializerMixin):
+
+    # serialize_rules =  ("-subjects.user","-schedules.user","-messages.user")
       
     __tablename__  = "users"
 
@@ -25,6 +27,23 @@ class User(db.Model,SerializerMixin):
     enrolled_subjects = db.relationship('Subject', secondary="usersubjects", backref=db.backref('students', lazy='dynamic'))
     schedules = db.relationship("Schedule", backref="user", lazy=True, foreign_keys="Schedule.user_id")
     messages = db.relationship("Message", backref="added_by", lazy=True)
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'username': self.username,
+            'email': self.email,
+            'is_instructor': self.is_instructor,
+            # Exclude certain relationships from serialization
+            'added_subjects': [subject.id for subject in self.added_subjects],
+            'enrolled_subjects': [subject.id for subject in self.enrolled_subjects],
+            'schedules': [schedule.id for schedule in self.schedules],
+'messages': [message.id for message in self.messages],
+        }
+
+    
+
 
 
 class Subject(db.Model, SerializerMixin):
