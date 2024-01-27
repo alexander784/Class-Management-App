@@ -1,0 +1,58 @@
+.searchBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #f1f1f1;
+}
+
+.searchBar label {
+    margin-right: 10px;
+}
+
+.searchBar input {
+    padding: 5px;
+    border: 1px solid #ccc;
+}
+
+.searchBar a {
+    text-decoration: none;
+    color: #007bff;
+}
+
+.subjectsTable {
+    margin-top: 20px;
+}
+
+.subjectsTable h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.subjectsTable table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.subjectsTable th,
+.subjectsTable td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.subjectsTable th {
+    background-color: #f2f2f2;
+}
+
+.subjectsTable button {
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+.subjectsTable button:hover {
+    background-color: #0056b3;
+}
