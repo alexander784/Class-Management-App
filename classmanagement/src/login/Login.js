@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './login.css'
 import App from '../App';
+import SchoolLogo from '../../src/'
 
 const LoginForm = () => {
   // Manage email and password
