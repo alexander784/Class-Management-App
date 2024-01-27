@@ -1,17 +1,41 @@
 import React, { useState } from 'react';
 import './login.css'
 import App from '../App';
-import SchoolLogo from '../../src/'
+import SchoolLogo from '../images/SchoolLogo.png';
 
 const LoginForm = () => {
   // Manage email and password
-  const [email, setEmail] = useState('');
+  const [username, setUserName] = useState('');
   const [password, setPassword] = useState('');
 
   //  handle form submission
   const handleLogin = (e) => {
     e.preventDefault();
-    console.log('Login clicked');
+
+      const formData = {
+        "username":username,
+        "password":password
+      }
+
+      fetch("http://127.0.0.1:5000/auth/login" 
+      , {
+        method:'POST',
+        headers:{
+          'Content-Type':'application/json',
+          "Accept":'application/json'
+
+        },
+        body:JSON.stringify({"username":username,
+        "password":password}),
+      }).then(res =>
+        res.json()).then(d => 
+          console.log(d))
+            
+
+  
+
+
+    
   };
 
   const handleSignup = (e) => {
@@ -23,25 +47,26 @@ const LoginForm = () => {
 
     <div className="login-form-container">
 
-      <div className="logo">
-        <img src="https://github.com/alexander784/Class-Management-App/blob/main/classmanagement/src/images/SchoolLogo.png?raw=true
-        " alt="Logo" />
-      </div>
+      {/* <div className="logo">
+        <img src={SchoolLogo}
+         alt="Logo" />
+      </div> */}
       <form className="login-form">
        <p className='Login'> LOGIN </p>
-      <label for="email"><b>email address</b></label>
+      <label for="username"><b>UserName</b></label>
         <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          type="username"
+          value={username}
+          onChange={(e) => setUserName(e.target.value)}
         />
-        <label for="email"><b>password</b></label>
-
+        <label for="password"><b>password</b></label>
         <input
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
+
+        
 
 <button className="login-btn" onClick={handleLogin}>Login</button>
 <hr></hr>

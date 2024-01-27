@@ -6,6 +6,7 @@ import { Route, Routes } from 'react-router-dom';
 import SubjectsTbl from '../student-subjects/SubjectsTbl';
 import { Link } from 'react-router-dom';
 import RegisterSubject from '../RegisterSubject/RegisterSubject';
+import Login from '../../login/Login';
 
 const Dashboard = () => {
     return (
@@ -48,6 +49,7 @@ const Dashboard = () => {
                         </aside>
                         <div className='content'>
                             <Routes>
+                            <Route path='/login' element={<Login/>} />
                                 <Route path='/subjects' element={<SubjectsTbl />} />
                                 <Route path='/register-subjects' element={<RegisterSubject />} />
                             </Routes>
