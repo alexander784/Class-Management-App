@@ -97,7 +97,7 @@ def subjects():
               return jsonify({"error": "Invalid data format"}), 400
           except Exception as e:
               return jsonify({"error": str(e)}), 500      
-          
+        #   Handle Subjects
 @app.route('/subjects/<int:id>',methods=['PATCH','GET','DELETE'])
 def subject_by_id(id):
     subject= Subject.query.filter(Subject.id == id).first()
@@ -122,7 +122,7 @@ def subject_by_id(id):
               
         
         
-    
+    #Handle schedule
 @app.route('/schedule', methods=['POST'])
 def create_schedule():
     data = request.json 
@@ -170,12 +170,10 @@ def manage_schedule(id):
         db.session.commit()
         return make_response(jsonify({'message': 'Schedule deleted successfully'}), 200)
     
-from flask import jsonify
-
+# Handle Schedule
 @app.route('/messages', methods=['GET', 'POST'])
 def manage_messages():
     if request.method == 'GET':
-        # Assuming Message is an SQLAlchemy model and you want to fetch all messages
         messages = Message.query.all()
         messages_list = [{'id': message.id, 'author': message.author, 'content': message.content} for message in messages]
         return jsonify(messages_list)

@@ -6,27 +6,43 @@ import SchoolLogo from '../images/SchoolLogo.png';
 const LoginForm = () => {
   const [username, setUserName] = useState('');
   const [password, setPassword] = useState('');
-
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     const formData = {
       username: username,
       password: password,
     };
 
-    fetch('http://127.0.0.1:5000/auth/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-      },
-      body: JSON.stringify(formData),
-    })
-      .then((res) => res.json())
-      .then((data) => console.log(data));
+    try {
+      const response = await fetch('http://127.0.0.1:5000/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+
+        // Store the tokens
+        const token = data.token;
+
+        // Navigate to the Dashboard after successful login
+        navigate('/dashboard');
+      } else {
+        console.error('Login failed');
+      }
+    } catch (error) {
+      console.error('Error during login:', error);
+    }
   };
+
+  // handleSignup
 
   const handleSignup = (e) => {
     e.preventDefault();
