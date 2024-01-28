@@ -6,7 +6,9 @@ import { Route, Routes } from 'react-router-dom';
 import SubjectsTbl from '../student-subjects/SubjectsTbl';
 import { Link } from 'react-router-dom';
 import RegisterSubject from '../RegisterSubject/RegisterSubject';
+
 import SubjectForm from '../subjectForm/SubjectForm';
+
 
 const Dashboard = () => {
     return (
@@ -50,6 +52,7 @@ const Dashboard = () => {
                         </aside>
                         <div className='content'>
                             <Routes>
+                            <Route path='/login' element={<Login/>} />
                                 <Route path='/subjects' element={<SubjectsTbl />} />
                                 <Route path='/register-subjects' element={<RegisterSubject />} />
                                 <Route path='/add-subject' element={<SubjectForm />} />
