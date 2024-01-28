@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './subjectsTbl.css';
-import RegisterSubject from '../RegisterSubject/RegisterSubject';
+// import RegisterSubject from '../RegisterSubject/RegisterSubject';
 // import SubjectForm from '../SubjectForm/SubjectForm.js';
 
 const SubjectsTbl = ({ isInstructor }) => {
@@ -65,9 +65,7 @@ const SubjectsTbl = ({ isInstructor }) => {
     ];
 
 
-    function handleDrop(id) {
-        // Handle drop logic
-    }
+   
 
     function handleDrop(id) {
         // Handle drop logic
@@ -84,10 +82,10 @@ const SubjectsTbl = ({ isInstructor }) => {
                 <div className='table-head'>
                     <p>Your Subjects</p>
                     <div className='table-buttons'>
-                        <Link to='/register-subjects'>
+                        <Link to='/DashBoard/register-subjects'>
                             <button>Register Subjects</button>
                         </Link>
-                        <Link to='/add-subject'>
+                        <Link to='/DashBoard/add-subject'>
                             <button>Add Subject</button>
                         </Link>
                     </div>
