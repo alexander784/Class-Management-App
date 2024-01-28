@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import RegisterSubject from '../RegisterSubject/RegisterSubject';
 
 import SubjectForm from '../subjectForm/SubjectForm';
+import Schedule from '../schedule/Schedule';
 
 
 const Dashboard = () => {
@@ -57,6 +58,7 @@ const Dashboard = () => {
                                 <Route path='/register-subjects' element={<RegisterSubject />} />
                                 <Route path='/add-subject' element={<SubjectForm />} />
                                 <Route path='/view-subject' element={<SubjectForm />} />
+                                <Route path='/schedule' element={<Schedule />} />
                             </Routes>
                         </div>
 
