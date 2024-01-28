@@ -169,6 +169,56 @@ def manage_schedule(id):
         db.session.delete(schedule)
         db.session.commit()
         return make_response(jsonify({'message': 'Schedule deleted successfully'}), 200)
+    
+from flask import jsonify
+
+@app.route('/messages', methods=['GET', 'POST'])
+def manage_messages():
+    if request.method == 'GET':
+        # Assuming Message is an SQLAlchemy model and you want to fetch all messages
+        messages = Message.query.all()
+        messages_list = [{'id': message.id, 'author': message.author, 'content': message.content} for message in messages]
+        return jsonify(messages_list)
+    elif request.method == 'POST':
+        data = request.get_json()
+        new_message = Message(author=data['author'], content=data['content'])
+        db.session.add(new_message)
+        db.session.commit()
+        return jsonify({'id': new_message.id, 'author': new_message.author, 'content': new_message.content})
+    
+
+
+@app.route('/messages/<int:message_id>', methods=['GET', 'PUT', 'DELETE'])
+def manage_message(message_id):
+    message = Message.query.get(message_id)
+
+    if not message:
+        return jsonify({'error': 'Message not found'}), 404
+
+    if request.method == 'GET':
+        return jsonify({
+            'id': message.id,
+            'addedby': message.addedby,
+            'to': message.to,
+            'content': message.content
+        })
+
+    elif request.method == 'PUT':
+        data = request.get_json()
+        message.content = data.get('content', message.content)
+        db.session.commit()
+        return jsonify({
+            'id': message.id,
+            'addedby': message.addedby,
+            'to': message.to,
+            'content': message.content
+        })
+
+    elif request.method == 'DELETE':
+        db.session.delete(message)
+        db.session.commit()
+        return jsonify({'message': 'Message deleted'})
+
 
     
     

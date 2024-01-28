@@ -6,6 +6,7 @@ import Dashboard from './components/dashboard/dashboard';
 import SubjectsTbl from './components/student-subjects/SubjectsTbl';
   
 import Login from './login/Login';
+import SignUp from './signup/SignUp'
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <div className="App">
         <header className="App-header">
           <Login />
+          {/* <SignUp /> */}
           
           {/* <Dashboard /> */}
           
