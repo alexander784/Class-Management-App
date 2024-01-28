@@ -1,94 +1,95 @@
-.container{
+.container {
   display: flex;
-   background-color: lightgray;
-   border-radius: 10px;
-   padding: 5px;
-   margin: 70px;
-   /* justify-content: space-between; */
-   align-items: center;
-   width: 60%;
+  background-color: lightgray;
+  border-radius: 10px;
+  padding: 5px;
+  margin: 70px;
+  /* justify-content: space-between; */
+  align-items: center;
+  width: 60%;
 }
-.login-form-container {
-   display: flex;
-   width: 30%;
-   padding: 10px;
-   /* justify-content: space-between; */
-   align-items: flex-start;
-   flex-direction: column;
-   justify-content: center;
-   margin: 20px;
- }
- 
- .logo {
-   position: absolute;
-   width: 50%;
-   text-align: right;
-   flex-shrink: 0;
-   margin-bottom: 10px;
-   overflow: auto;
 
- }
- 
- .logo img {
-   width: 150px;
-   overflow: auto;
-   
- }
- 
- .login-form {
-   display: flex;
-   flex-direction: column;
-   margin-top: 20px;
-   width: 200px;
-   justify-content: space-between;
- }
- 
- label {
-   margin-bottom: 5px;
- }
- 
- input {
-   padding: 8px;
-   margin-bottom: 15px;
- }
- 
- .login-btn,
- .signup-btn {
-   padding: 10px;
-   cursor: pointer;
-   border: none;
- }
- 
- .login-btn {
-   margin-bottom: 10px; 
-   background-color: orange; 
-   color: white;
-   border-radius: 8px;
+/* .login-form-container {
+  display: flex;
+  width: 30%;
+  padding: 10px;
+  /* justify-content: space-between; 
+  align-items: flex-start;
+  flex-direction: column;
+  justify-content: center;
+  margin: 20px;
+} */
+/* 
+.logo {
+  position: absolute;
+  width: 50%;
+  text-align: right;
+  flex-shrink: 0;
+  margin-bottom: 10px;
+  overflow: auto;
 
- }
- .Login{
-   text-align: center;
-   position: absolute;
-   top: 0;
-   padding: 5px;
+}
+
+.logo img {
+  width: 150px;
+  overflow: auto;
+
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  width: 200px;
+  justify-content: space-between;
+}
+
+label {
+  margin-bottom: 5px;
+}
+
+input {
+  padding: 8px;
+  margin-bottom: 15px;
+}
+
+.login-btn,
+.signup-btn {
+  padding: 10px;
+  cursor: pointer;
+  border: none;
+}
+
+.login-btn {
+  margin-bottom: 10px;
+  background-color: orange;
+  color: white;
+  border-radius: 8px;
+
+}
+
+.Login {
+  text-align: center;
+  position: absolute;
+  top: 0;
+  padding: 5px;
 
 
 
 
- }
- 
- .login-btn:hover {
-   background-color: #45a049;
+}
 
- }
- 
- .signup-btn {
-   background-color: #2196f3;
-   color: white;
-   border-radius: 8px;
- }
- 
- .signup-btn:hover {
-   background-color: #0b7dda;
- }
- 
+.login-btn:hover {
+  background-color: #45a049;
+
+}
+
+.signup-btn {
+  background-color: #2196f3;
+  color: white;
+  border-radius: 8px;
+}
+
+.signup-btn:hover {
+  background-color: #0b7dda;
+} */

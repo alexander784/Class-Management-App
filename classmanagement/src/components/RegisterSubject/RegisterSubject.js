@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import  { Link } from 'react-router-dom';
 import './RegisterSubject.css'
 
@@ -19,7 +19,7 @@ const RegisterSubject = () => {
             <div>
                 <div className='searchBar'>
                     <label>Search: <input></input></label>
-                    <Link to='/subjects'>Back to Subject</Link>
+                    <Link to='/DashBoard/subjects'>Back to Subject</Link>
                 </div>
                 <div>
                     <div>
