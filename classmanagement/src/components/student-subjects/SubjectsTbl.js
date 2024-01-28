@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './subjectsTbl.css'
+import './subjectsTbl.css';
 import RegisterSubject from '../RegisterSubject/RegisterSubject';
+// import SubjectForm from '../SubjectForm/SubjectForm.js';
 
-const SubjectsTbl = () => {
-
+const SubjectsTbl = ({ isInstructor }) => {
     const subjects = [
         {
             id: 1,
@@ -64,20 +64,33 @@ const SubjectsTbl = () => {
         },
     ];
 
-    function handleDrop(id) {
 
+    function handleDrop(id) {
+        // Handle drop logic
     }
 
-
-
-
+    function handleDrop(id) {
+        // Handle drop logic
+        console.log(`Dropping subject with ID ${id}`);
+    }
+    function handleDelete(id) {
+        // Handle drop logic
+        console.log(`Deleting subject with ID ${id}`);
+    }
 
     return (
         <div>
             <div className='content'>
                 <div className='table-head'>
                     <p>Your Subjects</p>
-                    <div className='table-buttons'> <Link to='/register-subjects'><button>Register Subjects</button></Link></div>
+                    <div className='table-buttons'>
+                        <Link to='/register-subjects'>
+                            <button>Register Subjects</button>
+                        </Link>
+                        <Link to='/add-subject'>
+                            <button>Add Subject</button>
+                        </Link>
+                    </div>
                 </div>
                 <table>
                     <thead>
@@ -88,10 +101,12 @@ const SubjectsTbl = () => {
                             <th>Lecturer</th>
                             <th>Compulsory</th>
                             <th>Action</th>
+                            {isInstructor && <th>Edit</th>}
+                            {isInstructor && <th>Delete</th>}
                         </tr>
                     </thead>
                     <tbody>
-                        {subjects.map(subject => (
+                        {subjects.map((subject) => (
                             <tr key={subject.id}>
                                 <td>{subject.id}</td>
                                 <td>{subject.name}</td>
@@ -101,16 +116,21 @@ const SubjectsTbl = () => {
                                 <td>
                                     <button onClick={() => handleDrop(subject.id)}>Drop</button>
                                 </td>
+                                {isInstructor && <td>
+
+                                    <Link to={`/edit-subject/${subject.id}`}>
+                                        <button>Edit</button>
+                                    </Link>
+                                </td>}
+                                {isInstructor && <td><button onClick={() => handleDelete(subject.id)}>Delete</button></td>}
                             </tr>
                         ))}
                     </tbody>
                 </table>
-
-
             </div>
-
         </div>
     );
-}
+};
+
 
 export default SubjectsTbl;
