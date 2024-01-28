@@ -5,10 +5,18 @@ from flask_jwt_extended import JWTManager
 from auth import auth_bp
 from extension import jwt
 from flask_cors import CORS
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 
 
 app = Flask(__name__)
+
+
+app.config['SECRET_KEY'] = os.getenv('FLASK_SECRET_KEY')
+app.config['JWT_SECRET_KEY'] = os.getenv('FLASK_JWT_SECRET_KEY')
 
 
 

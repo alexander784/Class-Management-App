@@ -16,7 +16,7 @@ const LoginForm = () => {
     };
 
     try {
-      const response = await fetch('http://127.0.0.1:5000/auth/login', {
+      const response = await fetch('http://127.0.0.1:5555/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -33,7 +33,7 @@ const LoginForm = () => {
         const token = data.token;
 
         // Navigate to the Dashboard after successful login
-        navigate('/dashboard');
+        navigate('/Dashboard');
       } else {
         console.error('Login failed');
       }

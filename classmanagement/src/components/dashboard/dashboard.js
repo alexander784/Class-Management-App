@@ -52,7 +52,7 @@ const Dashboard = () => {
                         </aside>
                         <div className='content'>
                             <Routes>
-                            <Route path='/login' element={<Login/>} />
+                            
                                 <Route path='/subjects' element={<SubjectsTbl />} />
                                 <Route path='/register-subjects' element={<RegisterSubject />} />
                                 <Route path='/add-subject' element={<SubjectForm />} />
