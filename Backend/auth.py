@@ -17,7 +17,7 @@ def register_user():
         username=data.get('username'),
         email=data.get('email'),
         name=data.get('name'),
-        is_instructor=bool(data.get("IsInstructor"))
+        is_instructor=bool(data.get("is_instructor"))
     )
 
     new_user.set_password(password=data.get('password'))

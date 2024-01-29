@@ -11,6 +11,8 @@ import { useUser } from '../../UserContext';
 
 const Dashboard = () => {
     const { currentUser } = useUser();
+     
+
     return (
         <>
 
@@ -29,7 +31,7 @@ const Dashboard = () => {
                                 <p>Hi, <span>{currentUser.username}</span></p>
                                 <div className='logout'>
                                     <img src={profile} alt='profile' />
-                                    <button>Log Out</button>
+                                    <Link to='/' ><button>Log Out</button></Link>
                                 </div>
 
                             </div>

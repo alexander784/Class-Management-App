@@ -8,6 +8,7 @@ const LoginForm = () => {
   const [username, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const { loginUser } = useUser();
   
   const { currentUser, setUser } = useUser();
 
@@ -41,8 +42,10 @@ const LoginForm = () => {
             }
   
             const userData = await userResponse.json();
-            setUser(userData);
+            loginUser(userData);
+            // setUser(userData);
             console.log(userData); // Log the fetched user data
+            navigate('/Dashboard');
           } catch (error) {
             console.error('Error fetching user:', error);
           }
@@ -53,7 +56,7 @@ const LoginForm = () => {
         const token = data.token;
 
         // Navigate to the Dashboard after successful login
-        navigate('/Dashboard');
+        
               
       } else {
         console.error('Login failed');
