@@ -6,10 +6,13 @@ name = "pypi"
 [packages]
 sqlalchemy-serializer = "*"
 flask = "*"
+flask-jwt-extended="*"
 flask-sqlalchemy = "*"
 flask-migrate = "*"
 alembic = "*"
 sqlalchemy = "*"
+flask-cors = "*"
+python-dotenv = "*"
 
 [dev-packages]
 
