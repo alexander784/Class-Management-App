@@ -140,42 +140,35 @@ def subjects():
           return make_response(jsonify(subjects), 200)
       
       elif request.method == 'POST':
-          try:
-        #   newSubject=Subject(name=request.form.get('name'),
-        #                      code=request.form.get('code'),
-        #                      year=int(request.form.get('year')),
-        #                      compulsory=bool(request.form.get('compulsory')),
-        #                      added_by=int(request.form.get('added_by')))
-        
-              name = request.form.get('name')
-              code = request.form.get('code')
-              year = int(request.form.get('year'))
-              compulsory = bool(request.form.get('compulsory'))
-              added_by_id = int(request.form.get('added_by'))
-              
-              # Check if the user exists
-              added_by_user = User.query.get(added_by_id)
-              if not added_by_user:
-                  return jsonify({"error": "User not found"}), 404
-  
-              new_subject = Subject(
-                  name=name,
-                  code=code,
-                  year=year,
-                  compulsory=compulsory,
-                  addedby=added_by_id
-              )
-  
-              db.session.add(new_subject)
-              db.session.commit()
-  
-              return make_response(new_subject.to_dict(), 201)
+        data = request.json
+        print(f"Received data: {data}")
+        name = data['name']
+        code = data['code']
+        year = data['year']
+        compulsory = bool(data['compulsory'])
+        added_by_id = data['added_by']
+        added_by_user = User.query.get(added_by_id)
+        if not added_by_user:
+            return make_response(jsonify({"error": "User not found"}), 404)
+    
+    
+        new_subject = Subject(
+            name=name,
+            code=code,
+            year=year,
+             compulsory=compulsory,
+            addedby=added_by_id
+        )
+        db.session.add(new_subject)
+        db.session.commit()
+        return make_response(new_subject.to_dict(), 201)
        
       
-          except ValueError as e:
-              return jsonify({"error": "Invalid data format"}), 400
-          except Exception as e:
-              return jsonify({"error": str(e)}), 500      
+        #   except ValueError as e:
+        #       return jsonify({"error": "Invalid data format"}), 400
+        #   except Exception as e:
+              
+        #       return jsonify({"error": str(e), "form":request.form}), 500      
         #   Handle Subjects
 @app.route('/subjects/<int:id>',methods=['PATCH','GET','DELETE'])
 def subject_by_id(id):
