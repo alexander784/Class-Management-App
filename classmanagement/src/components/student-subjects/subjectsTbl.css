@@ -1,21 +1,29 @@
-
-.table-head{
+.table-head {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
 }
-.content{
+
+.content {
     padding: 10px 100px;
     color: black;
 }
-thead{
-    font-family:  Arial, sans-serif;
+
+thead {
+    font-family: Arial, sans-serif;
     font-weight: 200;
 }
-.table-head p{
-    color:black;
+
+.table-head p {
+    color: black;
 }
-button{
-    margin-left:10px
+
+button {
+    margin-left: 10px;
+    border-radius:10px;    
+}
+
+.danger {
+    background: rgb(207, 91, 91);
 }
