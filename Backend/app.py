@@ -22,7 +22,7 @@ jwt.init_app(app)
 app.register_blueprint(auth_bp,url_prefix='/auth')
 
 migrate = Migrate(app, db)
-CORS(app)
+CORS(app, origins="http://localhost:3000")
 
 
 
