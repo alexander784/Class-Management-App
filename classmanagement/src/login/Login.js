@@ -1,12 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './login.css';
 import SchoolLogo from '../images/SchoolLogo.png';
+import { useUser } from '../UserContext';
 
 const LoginForm = () => {
   const [username, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const { loginUser } = useUser();
+  
+  const { currentUser, setUser } = useUser();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -16,7 +20,7 @@ const LoginForm = () => {
     };
 
     try {
-      const response = await fetch('http://127.0.0.1:5000/auth/login', {
+      const response = await fetch('http://127.0.0.1:5555/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -28,12 +32,32 @@ const LoginForm = () => {
       if (response.ok) {
         const data = await response.json();
         console.log(data);
-
+  
+        const fetchUser = async () => {
+          try {
+            const userResponse = await fetch(`http://127.0.0.1:5555/users/${formData.username}`);
+  
+            if (!userResponse.ok) {
+              throw new Error(`Failed to fetch user: ${userResponse.status} ${userResponse.statusText}`);
+            }
+  
+            const userData = await userResponse.json();
+            loginUser(userData);
+            // setUser(userData);
+            console.log(userData); // Log the fetched user data
+            navigate('/Dashboard');
+          } catch (error) {
+            console.error('Error fetching user:', error);
+          }
+        };
+  
+        fetchUser();
         // Store the tokens
         const token = data.token;
 
         // Navigate to the Dashboard after successful login
-        navigate('/dashboard');
+        
+              
       } else {
         console.error('Login failed');
       }

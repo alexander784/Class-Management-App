@@ -2,15 +2,17 @@ import React from 'react';
 import SchoolLogo from '../../images/SchoolLogo.png';
 import profile from '../../images/profile.svg';
 import './dashboard.css';
-import { Route, Routes } from 'react-router-dom';
-import SubjectsTbl from '../student-subjects/SubjectsTbl';
-import { Link } from 'react-router-dom';
-import RegisterSubject from '../RegisterSubject/RegisterSubject';
+import { Route, Routes, Link, Outlet } from 'react-router-dom';
+import { useUser } from '../../UserContext';
 
-import SubjectForm from '../subjectForm/SubjectForm';
+
+
 
 
 const Dashboard = () => {
+    const { currentUser } = useUser();
+     
+
     return (
         <>
 
@@ -26,10 +28,10 @@ const Dashboard = () => {
                             <p>Moringa School</p>
 
                             <div className='user-prof-log'>
-                                <p>Hi, <span>current_user</span></p>
+                                <p>Hi, <span>{currentUser.username}</span></p>
                                 <div className='logout'>
                                     <img src={profile} alt='profile' />
-                                    <button>Log Out</button>
+                                    <Link to='/' ><button>Log Out</button></Link>
                                 </div>
 
                             </div>
@@ -40,26 +42,21 @@ const Dashboard = () => {
                         <aside>
                             <div className='button-list'>
 
-                                <Link to='/'><button>DASHBOARD</button></Link>
-                                <Link to='/subjects'><button>SUBJECTS</button></Link>
-                                <Link to='/grades'><button>GRADES</button></Link>
-                                <Link to='/messages'><button>MESSAGES</button></Link>
-                                <Link to='/schedule'><button>SCHEDULE</button></Link>
-                                
+                                <Link to='/DashBoard'><button>DASHBOARD</button></Link>
+                                <Link to='/DashBoard/subjects'><button>SUBJECTS</button></Link>
+                                <Link to='/DashBoard/grades'><button>GRADES</button></Link>
+                                <Link to='/DashBoard/messages'><button>MESSAGES</button></Link>
+                                <Link to='/DashBoard/schedule'><button>SCHEDULE</button></Link>
+
 
                             </div>
 
                         </aside>
                         <div className='content'>
-                            <Routes>
-                            <Route path='/login' element={<Login/>} />
-                                <Route path='/subjects' element={<SubjectsTbl />} />
-                                <Route path='/register-subjects' element={<RegisterSubject />} />
-                                <Route path='/add-subject' element={<SubjectForm />} />
-                                <Route path='/view-subject' element={<SubjectForm />} />
-                            </Routes>
-                        </div>
+                           
 
+                            <Outlet />
+                        </div>
 
                     </div>
                 </div>
