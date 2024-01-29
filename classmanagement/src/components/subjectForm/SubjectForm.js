@@ -1,13 +1,17 @@
-
-
 import React, { useState, useEffect } from 'react';
 import './SubjectForm.css';
+import { useNavigate } from 'react-router-dom';
+import { useUser } from '../../UserContext';
 
 const SubjectForm = ({ onSubmit, initialData }) => {
+  const { currentUser } = useUser();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: '',
     code: '',
     year: '',
+    compulsory: false,
+    added_by: '',
   });
 
   useEffect(() => {
@@ -53,7 +57,7 @@ const SubjectForm = ({ onSubmit, initialData }) => {
     if (validateForm()) {
       try {
         const method = initialData ? 'PATCH' : 'POST';
-        const url = initialData ? `http://127.0.0.1:5555/${initialData.id}` : 'http://127.0.0.1:5555/';
+        const url = initialData ? `http://127.0.0.1:5555/${initialData.id}` : 'http://127.0.0.1:5555/subjects';
 
         const response = await fetch(url, {
           method,
@@ -61,12 +65,16 @@ const SubjectForm = ({ onSubmit, initialData }) => {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify(formData),
-        });
+        }).then(
+            ()=>{
+                navigate('/DashBoard/subjects');
+            }
+        );
 
         if (response.ok) {
-          // Assuming the server responds with the updated or newly created subject
           const updatedSubject = await response.json();
           onSubmit(updatedSubject);
+         
         } else {
           console.error('Failed to submit the form:', response.statusText);
         }
@@ -78,51 +86,63 @@ const SubjectForm = ({ onSubmit, initialData }) => {
     }
   };
 
+  return (
+    <form onSubmit={handleSubmit}>
+      <div>
+        <label>
+          Name:
+        </label>
+        <input
+          type="text"
+          name="name"
+          value={formData.name}
+          onChange={handleInputChange}
+        />
+        {errors.name && <span className="error">{errors.name}</span>}
+      </div>
 
-    return (
-        <form onSubmit={handleSubmit}>
-            <div>
-                <label>
-                    Name:
-                </label>
-                <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleInputChange}
-                />
-                {errors.name && <span className="error">{errors.name}</span>}
-            </div>
+      <div>
+        <label>
+          Code:
+        </label>
+        <input
+          type="text"
+          name="code"
+          value={formData.code}
+          onChange={handleInputChange}
+        />
+        {errors.code && <span className="error">{errors.code}</span>}
+      </div>
 
-            <div>
-                <label>
-                    Code:
-                </label>
-                <input
-                    type="text"
-                    name="code"
-                    value={formData.code}
-                    onChange={handleInputChange}
-                />
-                {errors.code && <span className="error">{errors.code}</span>}
-            </div>
+      <div>
+        <label>
+          Year:
+        </label>
+        <input
+          type="text"
+          name="year"
+          value={formData.year}
+          onChange={handleInputChange}
+        />
+        {errors.year && <span className="error">{errors.year}</span>}
+      </div>
+      <div>
+        <label>
+          Compulsory:
+        </label>
+        <input
+          type="checkbox"
+          name="compulsory"
+          checked={formData.compulsory}
+          onChange={handleInputChange}
+        />
 
-            <div>
-                <label>
-                    Year:
-                </label>
-                <input
-                    type="text"
-                    name="year"
-                    value={formData.year}
-                    onChange={handleInputChange}
-                />
-                {errors.year && <span className="error">{errors.year}</span>}
-            </div>
+        {errors.compulsory && <span className="error">{errors.compulsory}</span>}
+      </div>
 
-            <button type="submit">{initialData ? 'Update Subject' : 'Add Subject'}</button>
-        </form>
-    );
+      <button type="submit">{initialData ? 'Update Subject' : 'Add Subject'}</button>
+    </form>
+  );
 };
 
 export default SubjectForm;
