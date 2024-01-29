@@ -1,7 +1,7 @@
 from flask import Flask,request,Response,make_response, jsonify
-from models import db, User,UserSubject,Subject,Grade,Schedule,Message
+from models import TokenBlockList, db, User,UserSubject,Subject,Grade,Schedule,Message
 from flask_migrate import Migrate
-from flask_jwt_extended import JWTManager
+from flask_jwt_extended import JWTManager, get_jwt_identity
 from auth import auth_bp
 from extension import jwt
 from flask_cors import CORS
@@ -33,6 +33,66 @@ migrate = Migrate(app, db)
 CORS(app)
 
 
+#claims
+
+
+
+@jwt.additional_claims_loader
+def make_additional_claims(identity):
+   
+    user_data = get_user_properties(identity)
+    return user_data
+
+def get_user_properties(identity):
+   
+
+    
+    if identity in User:
+        user = User[identity]
+        return {
+            "is_staff": user.is_instructor,
+            "custom_property": user.custom_property,
+           
+        }
+    else:
+        
+        return {
+            "is_staff": False,
+            "custom_property": "default_value",
+            
+        }
+
+# jwt error handlers
+@jwt.expired_token_loader
+def expired_token_callback(jwt_header, jwt_data):
+    return jsonify({
+        "message": "Token has expired",
+        "error": "token_expired"
+    }), 401
+@jwt.invalid_token_loader
+def invalid_token_callback(error):
+    return jsonify({
+        "message": "Signature Verification failed",
+        "error": "Invalid Token"
+    }), 401
+@jwt.unauthorized_loader
+def missing_token_callback(error):
+    return jsonify({
+        "message": "Request does not contain a valid token",
+        "error": "Authorizatin required"
+    }), 401
+    
+    
+@jwt.token_in_blocklist_loader
+def token_in_blocklist_callback(jwt_header, jwt_data):
+    jti = jwt_data['jti']
+    
+    token = db.session.query(TokenBlockList).filter(TokenBlockList.jti == jti).scalar()
+    return token is not None
+
+#end claims
+
+
 
 
 @app.route('/')
@@ -48,17 +108,22 @@ def users():
             users.append(user.to_dict())
 
         return make_response(users, 200)
-    elif request.method == "POST":
-        newuser = User(username=request.form.get("username"),
-                       password=request.form.get ("password"),
-                       is_instructor=bool(request.form.get("IsInstructor")),
-                       email=request.form.get("useremail"),
-                       name=request.form.get('name'))
+    # elif request.method == "POST":
+    #     data = request.get_json()
+    #     user = User.get_user_by_username(username=data.get('username'))
+    #     if user is not None:
+    #        return jsonify({"error": "user already exist"}), 403
         
-        db.session.add(newuser)
-        db.session.commit()
+    #     newuser = User(username=data.get("username"),
+    #                    password=data.get ("password"),
+    #                    is_instructor=bool(data.get("IsInstructor")),
+    #                    email=data.get("useremail"),
+    #                    name=data.get('name'))
+        
+    #     newuser.set_password(password=data.get('password'))
+    #     newuser.save()
 
-        return make_response({"message":"Created successfully"},201)
+    #     return jsonify({"message": "user Created"}), 201
     
     
 @app.route('/subjects',methods=['GET','POST'])

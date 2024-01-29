@@ -3,9 +3,8 @@ import SchoolLogo from '../../images/SchoolLogo.png';
 import profile from '../../images/profile.svg';
 import './dashboard.css';
 import { Route, Routes, Link, Outlet } from 'react-router-dom';
-import SubjectsTbl from '../student-subjects/SubjectsTbl';
-import RegisterSubject from '../RegisterSubject/RegisterSubject';
-import SubjectForm from '../subjectForm/SubjectForm';
+
+
 
 
 const Dashboard = () => {
@@ -49,13 +48,7 @@ const Dashboard = () => {
 
                         </aside>
                         <div className='content'>
-                            {/* <Routes>
-
-                                <Route path='/DashBoard/subjects' element={<SubjectsTbl />} />
-                                <Route path='/register-subjects' element={<RegisterSubject />} />
-                                <Route path='/add-subject' element={<SubjectForm />} />
-                                <Route path='/view-subject' element={<SubjectForm />} />
-                            </Routes> */}
+                           
 
                             <Outlet />
                         </div>
