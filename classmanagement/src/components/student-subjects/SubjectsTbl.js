@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './subjectsTbl.css';
+import { useUser } from '../../UserContext';
 // import RegisterSubject from '../RegisterSubject/RegisterSubject';
 // import SubjectForm from '../SubjectForm/SubjectForm.js';
 
-const SubjectsTbl = ({ isInstructor }) => {
+const SubjectsTbl = () => {
     const subjects = [
         {
             id: 1,
@@ -63,9 +64,10 @@ const SubjectsTbl = ({ isInstructor }) => {
             compulsory: false,
         },
     ];
+    const { currentUser } = useUser();
 
 
-   
+
 
     function handleDrop(id) {
         // Handle drop logic
@@ -85,9 +87,9 @@ const SubjectsTbl = ({ isInstructor }) => {
                         <Link to='/DashBoard/register-subjects'>
                             <button>Register Subjects</button>
                         </Link>
-                        <Link to='/DashBoard/add-subject'>
+                        {currentUser.is_instructor && <Link to='/DashBoard/add-subject'>
                             <button>Add Subject</button>
-                        </Link>
+                        </Link>}
                     </div>
                 </div>
                 <table>
@@ -99,8 +101,8 @@ const SubjectsTbl = ({ isInstructor }) => {
                             <th>Lecturer</th>
                             <th>Compulsory</th>
                             <th>Action</th>
-                            {isInstructor && <th>Edit</th>}
-                            {isInstructor && <th>Delete</th>}
+                            {currentUser.is_instructor  && <th>Edit</th>}
+                            {currentUser.is_instructor  && <th>Delete</th>}
                         </tr>
                     </thead>
                     <tbody>
@@ -114,13 +116,13 @@ const SubjectsTbl = ({ isInstructor }) => {
                                 <td>
                                     <button onClick={() => handleDrop(subject.id)}>Drop</button>
                                 </td>
-                                {isInstructor && <td>
+                                {currentUser.is_instructor  && <td>
 
                                     <Link to={`/edit-subject/${subject.id}`}>
                                         <button>Edit</button>
                                     </Link>
                                 </td>}
-                                {isInstructor && <td><button onClick={() => handleDelete(subject.id)}>Delete</button></td>}
+                                {currentUser.is_instructor  && <td><button onClick={() => handleDelete(subject.id)}>Delete</button></td>}
                             </tr>
                         ))}
                     </tbody>

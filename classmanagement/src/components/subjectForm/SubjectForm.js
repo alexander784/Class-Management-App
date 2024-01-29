@@ -1,64 +1,83 @@
-import React, { useState, useEffect  } from 'react';
-import './SubjectForm.css'
+
+
+import React, { useState, useEffect } from 'react';
+import './SubjectForm.css';
 
 const SubjectForm = ({ onSubmit, initialData }) => {
+  const [formData, setFormData] = useState({
+    name: '',
+    code: '',
+    year: '',
+  });
 
+  useEffect(() => {
+    if (initialData) {
+      setFormData(initialData);
+    }
+  }, [initialData]);
 
-    const [formData, setFormData] = useState({
-        name: '',
-        code: '',
-        year: '',
+  const [errors, setErrors] = useState({});
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
     });
+  };
 
-    useEffect(() => {
-        if (initialData) {
+  const validateForm = () => {
+    const newErrors = {};
 
-            setFormData(initialData);
-        }
-    }, [initialData]);
+    if (formData.name.trim().length < 3) {
+      newErrors.name = 'Name should be at least 3 characters';
+    }
 
-    const [errors, setErrors] = useState({});
+    if (formData.code.trim().length < 6) {
+      newErrors.code = 'Code should be at least 6 characters';
+    }
 
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({
-            ...formData,
-            [name]: value,
+    const yearNumber = parseInt(formData.year, 10);
+    if (isNaN(yearNumber) || yearNumber < 1 || yearNumber > 4) {
+      newErrors.year = 'Year should be between 1 and 4';
+    }
+
+    setErrors(newErrors);
+
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (validateForm()) {
+      try {
+        const method = initialData ? 'PATCH' : 'POST';
+        const url = initialData ? `http://127.0.0.1:5555/${initialData.id}` : 'http://127.0.0.1:5555/';
+
+        const response = await fetch(url, {
+          method,
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData),
         });
-    };
 
-    const validateForm = () => {
-        const newErrors = {};
-
-        if (formData.name.trim().length < 3) {
-            newErrors.name = 'Name should be at least 3 characters';
-        }
-
-        if (formData.code.trim().length < 6) {
-            newErrors.code = 'Code should be at least 6 characters';
-        }
-
-        const yearNumber = parseInt(formData.year, 10);
-        if (isNaN(yearNumber) || yearNumber < 1 || yearNumber > 4) {
-            newErrors.year = 'Year should be between 1 and 4';
-        }
-
-        setErrors(newErrors);
-
-        return Object.keys(newErrors).length === 0;
-    };
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-
-        if (validateForm()) {
-            // onSubmit will be a function provided by the parent component
-            // It can be used for both adding and editing subjects
-            onSubmit(formData);
+        if (response.ok) {
+          // Assuming the server responds with the updated or newly created subject
+          const updatedSubject = await response.json();
+          onSubmit(updatedSubject);
         } else {
-            console.log('Form has errors. Please correct them.');
+          console.error('Failed to submit the form:', response.statusText);
         }
-    };
+      } catch (error) {
+        console.error('Error during form submission:', error);
+      }
+    } else {
+      console.log('Form has errors. Please correct them.');
+    }
+  };
+
 
     return (
         <form onSubmit={handleSubmit}>

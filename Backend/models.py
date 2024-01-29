@@ -1,3 +1,4 @@
+from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy_serializer import SerializerMixin
 from alembic import op
@@ -142,6 +143,20 @@ class Grade(db.Model):
     usersubject = db.Column(db.Integer, db.ForeignKey('usersubjects.id'), nullable=False)
     grade = db.Column(db.String(5) , nullable=True )
     created_at = db.Column(db.DateTime() , nullable=False , default=db.func.now)
+    
+
+class TokenBlockList(db.Model):
+    id=db.Column(db.Integer, primary_key=True)
+    jti = db.Column(db.String, nullable=False)
+    create_at = db.Column(db.DateTime, default=datetime.utcnow)
+    
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+    
+    
+    def __repr__(self) -> str:
+        return f'<Token {self.jti}>'
 
 
 

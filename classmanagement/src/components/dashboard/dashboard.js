@@ -3,12 +3,16 @@ import SchoolLogo from '../../images/SchoolLogo.png';
 import profile from '../../images/profile.svg';
 import './dashboard.css';
 import { Route, Routes, Link, Outlet } from 'react-router-dom';
-import SubjectsTbl from '../student-subjects/SubjectsTbl';
-import RegisterSubject from '../RegisterSubject/RegisterSubject';
-import SubjectForm from '../subjectForm/SubjectForm';
+import { useUser } from '../../UserContext';
+
+
+
 
 
 const Dashboard = () => {
+    const { currentUser } = useUser();
+     
+
     return (
         <>
 
@@ -24,10 +28,10 @@ const Dashboard = () => {
                             <p>Moringa School</p>
 
                             <div className='user-prof-log'>
-                                <p>Hi, <span>current_user</span></p>
+                                <p>Hi, <span>{currentUser.username}</span></p>
                                 <div className='logout'>
                                     <img src={profile} alt='profile' />
-                                    <button>Log Out</button>
+                                    <Link to='/' ><button>Log Out</button></Link>
                                 </div>
 
                             </div>
@@ -49,13 +53,7 @@ const Dashboard = () => {
 
                         </aside>
                         <div className='content'>
-                            {/* <Routes>
-
-                                <Route path='/DashBoard/subjects' element={<SubjectsTbl />} />
-                                <Route path='/register-subjects' element={<RegisterSubject />} />
-                                <Route path='/add-subject' element={<SubjectForm />} />
-                                <Route path='/view-subject' element={<SubjectForm />} />
-                            </Routes> */}
+                           
 
                             <Outlet />
                         </div>
