@@ -3,11 +3,14 @@ import SchoolLogo from '../../images/SchoolLogo.png';
 import profile from '../../images/profile.svg';
 import './dashboard.css';
 import { Route, Routes, Link, Outlet } from 'react-router-dom';
+import { useUser } from '../../UserContext';
+
 
 
 
 
 const Dashboard = () => {
+    const { currentUser } = useUser();
     return (
         <>
 
@@ -23,7 +26,7 @@ const Dashboard = () => {
                             <p>Moringa School</p>
 
                             <div className='user-prof-log'>
-                                <p>Hi, <span>current_user</span></p>
+                                <p>Hi, <span>{currentUser.username}</span></p>
                                 <div className='logout'>
                                     <img src={profile} alt='profile' />
                                     <button>Log Out</button>

@@ -46,21 +46,19 @@ def make_additional_claims(identity):
 def get_user_properties(identity):
    
 
-    
-    if identity in User:
-        user = User[identity]
-        return {
-            "is_staff": user.is_instructor,
-            "custom_property": user.custom_property,
-           
-        }
-    else:
-        
-        return {
-            "is_staff": False,
-            "custom_property": "default_value",
-            
-        }
+    user = User.query.filter_by(username=identity).first()
+
+    if not user:
+        return {"error": "User not found"}
+
+   
+    user_data = {
+         "username": user.username,
+            "is_instructor": user.is_instructor
+    }
+
+    return user_data
+   
 
 # jwt error handlers
 @jwt.expired_token_loader
@@ -124,6 +122,14 @@ def users():
     #     newuser.save()
 
     #     return jsonify({"message": "user Created"}), 201
+    
+@app.route('/users/<string:username>', methods=['GET'])
+def get_user(username):
+        user = User.get_user_by_username(username=username) 
+        if not user:
+           response_body = {"error": "user not found"}
+           return make_response(response_body, 404)
+        return make_response(user.to_dict(), 200)
     
     
 @app.route('/subjects',methods=['GET','POST'])
