@@ -57,7 +57,7 @@ const SubjectForm = ({ onSubmit, initialData }) => {
     if (validateForm()) {
       try {
         const method = initialData ? 'PATCH' : 'POST';
-        const url = initialData ? `http://127.0.0.1:5555/${initialData.id}` : 'http://127.0.0.1:5555/subjects';
+        const url = initialData ? `http://127.0.0.1:5000/${initialData.id}` : 'http://127.0.0.1:5000/subjects';
 
         const response = await fetch(url, {
           method,

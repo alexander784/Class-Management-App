@@ -20,7 +20,7 @@ const LoginForm = () => {
     };
 
     try {
-      const response = await fetch('http://127.0.0.1:5555/auth/login', {
+      const response = await fetch('http://127.0.0.1:5000/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -35,7 +35,7 @@ const LoginForm = () => {
   
         const fetchUser = async () => {
           try {
-            const userResponse = await fetch(`http://127.0.0.1:5555/users/${formData.username}`);
+            const userResponse = await fetch(`http://127.0.0.1:5000/users/${formData.username}`);
   
             if (!userResponse.ok) {
               throw new Error(`Failed to fetch user: ${userResponse.status} ${userResponse.statusText}`);
@@ -104,6 +104,7 @@ const LoginForm = () => {
           </button>
         </form>
       </div>
+      
     </div>
   );
 };
