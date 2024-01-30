@@ -72,7 +72,7 @@ const SubjectsTbl = () => {
     useEffect(() => {
         const fetchSubjects = async () => {
             try {
-                const response = await fetch('http://127.0.0.1:5555/subjects');
+                const response = await fetch('http://127.0.0.1:5000/subjects');
                 if (!response.ok) {
                     throw new Error(`Failed to fetch subjects: ${response.status} ${response.statusText}`);
                 }
@@ -104,7 +104,7 @@ const SubjectsTbl = () => {
         // Handle delete logic
         if (window.confirm('Are you sure you want to delete this subject?')) {
             try {
-                await fetch(`http://127.0.0.1:5555/subjects/${id}`, {
+                await fetch(`http://127.0.0.1:5000/subjects/${id}`, {
                     method: 'DELETE',
                 });
 
