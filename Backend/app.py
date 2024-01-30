@@ -4,7 +4,7 @@ from flask_migrate import Migrate
 from flask_jwt_extended import JWTManager, get_jwt_identity
 from auth import auth_bp
 from extension import jwt
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
 from dotenv import load_dotenv
 import os
 
@@ -30,7 +30,8 @@ jwt.init_app(app)
 app.register_blueprint(auth_bp,url_prefix='/auth')
 
 migrate = Migrate(app, db)
-CORS(app)
+CORS(app, origins="http://localhost:3000", allow_headers=["Content-Type", "Authorization"])
+
 
 
 #claims
@@ -124,6 +125,7 @@ def users():
     #     return jsonify({"message": "user Created"}), 201
     
 @app.route('/users/<string:username>', methods=['GET'])
+@cross_origin(origin='http://localhost:3000', headers=['Content-Type', 'Authorization'])
 def get_user(username):
         user = User.get_user_by_username(username=username) 
         if not user:
