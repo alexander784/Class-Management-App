@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import './signup.css'
 
 const SignupForm = () => {
   const [name, setName] = useState('');
@@ -56,8 +57,13 @@ const SignupForm = () => {
   };
 
   return (
-    <div className="signup-container">
-      <h2 className="signup-title">Sign Up</h2>
+    <div className='container'>
+    <div className='image-container'>
+      <img src='https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8c2Nob29sJTIwZ2F0ZXMlMjBpbWFnZXN8ZW58MHx8MHx8fDA%3D'
+        alt='school image'/>'
+    </div>
+    <div className="signup">
+      <h2 className="signup">Sign Up</h2>
       <p className="create">First create an account</p>
       {error && <p style={{ color: 'red' }}>{error}</p>}
       <form className="signup-form" onSubmit={handleSubmit}>
@@ -117,6 +123,7 @@ const SignupForm = () => {
           Login
         </Link>
       </p>
+    </div>
     </div>
   );
 };
