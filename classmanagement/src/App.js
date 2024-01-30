@@ -9,6 +9,7 @@ import SignUp from './signup/SignUp'
 
 import RegisterSubject from './components/RegisterSubject/RegisterSubject';
 import SubjectForm from './components/subjectForm/SubjectForm';
+import Schedule from './components/schedule/Schedule';
 
 
 function App() {
@@ -22,7 +23,7 @@ function App() {
         <Route path="subjects" element={<SubjectsTbl />} />
         <Route path="grades" element={<SubjectsTbl />} />
         <Route path="messages" element={<SubjectsTbl />} />
-        <Route path="schedule" element={<SubjectsTbl />} />
+        <Route path="schedule" element={<Schedule />} />
         <Route path="register-subjects" element={<RegisterSubject />} />
         <Route path="add-subject" element={<SubjectForm />} />
         <Route path="view-subject" element={<SubjectForm />} />

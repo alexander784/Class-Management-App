@@ -72,7 +72,7 @@ const SubjectsTbl = () => {
     useEffect(() => {
         const fetchSubjects = async () => {
             try {
-                const response = await fetch('http://127.0.0.1:5555/subjects');
+                const response = await fetch('http://127.0.0.1:5000/subjects');
                 if (!response.ok) {
                     throw new Error(`Failed to fetch subjects: ${response.status} ${response.statusText}`);
                 }

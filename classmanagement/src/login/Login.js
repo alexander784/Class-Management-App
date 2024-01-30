@@ -9,7 +9,7 @@ const LoginForm = () => {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
   const { loginUser } = useUser();
-  
+
   const { currentUser, setUser } = useUser();
 
   const handleLogin = async (e) => {
@@ -20,7 +20,7 @@ const LoginForm = () => {
     };
 
     try {
-      const response = await fetch('http://127.0.0.1:5555/auth/login', {
+      const response = await fetch('http://127.0.0.1:5000/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -32,15 +32,15 @@ const LoginForm = () => {
       if (response.ok) {
         const data = await response.json();
         console.log(data);
-  
+
         const fetchUser = async () => {
           try {
-            const userResponse = await fetch(`http://127.0.0.1:5555/users/${formData.username}`);
-  
+            const userResponse = await fetch(`http://127.0.0.1:5000/users/${formData.username}`);
+
             if (!userResponse.ok) {
               throw new Error(`Failed to fetch user: ${userResponse.status} ${userResponse.statusText}`);
             }
-  
+
             const userData = await userResponse.json();
             loginUser(userData);
             // setUser(userData);
@@ -50,14 +50,14 @@ const LoginForm = () => {
             console.error('Error fetching user:', error);
           }
         };
-  
+
         fetchUser();
         // Store the tokens
         const token = data.token;
 
         // Navigate to the Dashboard after successful login
-        
-              
+
+
       } else {
         console.error('Login failed');
       }

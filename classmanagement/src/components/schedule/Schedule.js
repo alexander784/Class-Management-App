@@ -4,7 +4,6 @@ import './schedule.css';
 import { useUser } from '../../UserContext';
 
 
-
 const Schedule = () => {
   const [schedules, setSchedules] = useState([]);
   const [selectedScheduleId, setSelectedScheduleId] = useState('');
@@ -14,7 +13,7 @@ const Schedule = () => {
 
   useEffect(() => {
     console.log('Fetching schedules...');
-    axios.get('http://localhost:5555/schedule')
+    axios.get('http://localhost:5000/schedule')
       .then(response => {
         console.log('Schedules fetched successfully:', response.data);
         setSchedules(response.data);
