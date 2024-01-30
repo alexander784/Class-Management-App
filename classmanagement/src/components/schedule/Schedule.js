@@ -14,7 +14,7 @@ const Schedule = () => {
 
   useEffect(() => {
     console.log('Fetching schedules...');
-    axios.get('http://localhost:5555/schedule')
+    axios.get('http://localhost:5000/schedule')
       .then(response => {
         console.log('Schedules fetched successfully:', response.data);
         setSchedules(response.data);
@@ -35,7 +35,7 @@ const Schedule = () => {
 
   const handleUpdateSchedule = () => {
     console.log(`Updating schedule with ID ${selectedScheduleId}...`);
-    axios.patch(`http://localhost:5555/schedule/${selectedScheduleId}`, { subject: updatedSubject })
+    axios.patch(`http://localhost:5000/schedule/${selectedScheduleId}`, { subject: updatedSubject })
       .then(response => {
         console.log('Schedule updated successfully:', response.data);
         setSchedules(prevSchedules => {
@@ -54,7 +54,7 @@ const Schedule = () => {
 
   const handleDeleteSchedule = () => {
     console.log(`Deleting schedule with ID ${selectedScheduleId}...`);
-    axios.delete(`http://localhost:5555/schedule/${selectedScheduleId}`)
+    axios.delete(`http://localhost:5000/schedule/${selectedScheduleId}`)
       .then(response => {
         console.log('Schedule deleted successfully:', response.data);
         setSchedules(prevSchedules => 
