@@ -60,7 +60,7 @@ class User(db.Model,SerializerMixin):
             'added_subjects': [subject.id for subject in self.added_subjects],
             'enrolled_subjects': [subject.id for subject in self.enrolled_subjects],
             'schedules': [schedule.id for schedule in self.schedules],
-'messages': [message.id for message in self.messages],
+            'messages': [message.id for message in self.messages],
         }
 
     
