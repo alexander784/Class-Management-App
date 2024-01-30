@@ -1,15 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './schedule.css';
+import { useUser } from '../../UserContext';
+
+
 
 const Schedule = () => {
   const [schedules, setSchedules] = useState([]);
   const [selectedScheduleId, setSelectedScheduleId] = useState('');
   const [updatedSubject, setUpdatedSubject] = useState('');
+  const { currentUser } = useUser();
+  
 
   useEffect(() => {
     console.log('Fetching schedules...');
-    axios.get('http://localhost:5000/schedule')
+    axios.get('http://localhost:5555/schedule')
       .then(response => {
         console.log('Schedules fetched successfully:', response.data);
         setSchedules(response.data);
@@ -30,7 +35,7 @@ const Schedule = () => {
 
   const handleUpdateSchedule = () => {
     console.log(`Updating schedule with ID ${selectedScheduleId}...`);
-    axios.patch(`http://localhost:5000/schedule/${selectedScheduleId}`, { subject: updatedSubject })
+    axios.patch(`http://localhost:5555/schedule/${selectedScheduleId}`, { subject: updatedSubject })
       .then(response => {
         console.log('Schedule updated successfully:', response.data);
         setSchedules(prevSchedules => {
@@ -49,7 +54,7 @@ const Schedule = () => {
 
   const handleDeleteSchedule = () => {
     console.log(`Deleting schedule with ID ${selectedScheduleId}...`);
-    axios.delete(`http://localhost:5000/schedule/${selectedScheduleId}`)
+    axios.delete(`http://localhost:5555/schedule/${selectedScheduleId}`)
       .then(response => {
         console.log('Schedule deleted successfully:', response.data);
         setSchedules(prevSchedules => 
@@ -68,10 +73,9 @@ const Schedule = () => {
   const sortedSchedules = [...schedules].sort((a, b) => a.id - b.id);
 
   return (
-    <div className="schedule-container">
-      <div className='timetable-container'>
-      <h1 className="timetable-header">Timetable</h1>
-      <div className="controls-container">
+    <>
+    {currentUser.is_instructor && <div className="controls-container">
+    
         <label className="label">Select Schedule ID:</label>
         <select
           value={selectedScheduleId}
@@ -96,7 +100,11 @@ const Schedule = () => {
         <button onClick={handleUpdateSchedule} className="button">Update Schedule</button>
         <button onClick={handleDeleteSchedule} className="deletebutton">Delete Schedule</button>
         </div>
-      </div>
+      </div>}
+    
+    <div className="schedule-container">
+      <div className='timetable-container'>
+      <h1 className="timetable-header">Timetable</h1>      
       <table border="1" className="timetable-table">
         <thead>
           <tr>
@@ -129,6 +137,7 @@ const Schedule = () => {
       </table>
       </div>
     </div>
+    </>
   );
 }
 
