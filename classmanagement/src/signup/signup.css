@@ -1,71 +1,76 @@
- div {
-   max-width: 4000px;
-   margin: auto;
-   padding: 20px;
-   background-color: aqua;
-   border-radius: 15px;
+.container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 100vh;
+}
 
-   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
- }
+.image-container {
+  flex-shrink: 0; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px; 
+  overflow: hidden; 
+}
 
- form {
-   display: flex;
-   flex-direction: column;
- }
+.signup {
+  max-width: 300px; 
+  width: 60%; 
+  padding: 8px; 
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.signup h2 {
+  text-align: center;
+  color: #333;
+}
+
+.signup-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.signup-form input {
+  margin-bottom: 6px; 
+  padding: 6px; 
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 12px; 
+}
+
+.signup-form button {
+  padding: 8px; 
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 12px; 
+}
+
+.signup-form button:disabled {
+  background-color: #95a5a6;
+  cursor: not-allowed;
+}
+
+.login-link {
+  color: #3498db;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 12px; 
+}
+
+.login-link:hover {
+  text-decoration: underline;
+}
 
 
- input {
-   padding: 18px;
-   margin-bottom: 8px;
-   border: 1px solid #ccc;
-   border-radius: 4px;
- }
+body {
+  background-color: #e9f1fa;
+}
 
- button {
-   padding: 10px;
-   background-color: aqua;
-   color: #fff;
-   border: none;
-   border-radius: 25px;
-   cursor: pointer;
-   width: 150px;
-   margin: auto;
-   /* max-width: 150px; */
- }
 
- button:hover {
-   background-color: #0056b3;
- }
 
- p button {
-   background: none;
-   border: none;
-   padding: 0;
-   font: inherit;
-   color: #ffa500;
-   text-decoration: underline;
-   cursor: pointer;
- }
 
- .signup-container {
-   max-width: 400px;
-   margin: 0 auto;
-   padding: 20px;
-   background-color: #fff;
-   border-radius: 8px;
-   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
- }
 
- .signup-title {
-   text-align: center;
-   color: #333;
- }
-
- .create {
-   text-align: center;
- }
-
- .signup-form {
-   display: flex;
-   flex-direction: column;
- }
