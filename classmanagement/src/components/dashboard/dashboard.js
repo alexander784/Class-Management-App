@@ -25,7 +25,7 @@ const Dashboard = () => {
                         </div>
                         <div className='nav-content'>
 
-                            <p>Moringa School</p>
+                            <p>Cool School</p>
 
                             <div className='user-prof-log'>
                                 <p>Hi, <span>{currentUser.username}</span></p>
