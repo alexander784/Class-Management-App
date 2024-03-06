@@ -14,7 +14,7 @@ function MessageForm() {
 //   Fetch Messages
   const fetchMessages = async () => {
     try {
-      const response = await fetch('/messages');
+      const response = await fetch('http://127.0.0.1:5000/messages');
       if (response.ok) {
         const messagesData = await response.json();
         setMessages(messagesData);
@@ -56,7 +56,7 @@ function MessageForm() {
 
   return (
     <div>
-      <h2>Send Message</h2>
+      <h2>Messages</h2>
       {messageSent && <p>Message sent successfully!</p>}
       {errorMessage && <p>Error: {errorMessage}</p>}
       <form onSubmit={handleSubmit}>
@@ -71,10 +71,10 @@ function MessageForm() {
             onChange={(e) => setContent(e.target.value)}
           />
         </div>
-        <button type="submit">Send</button>
+        <button style={{color:"blue"}} type="submit">Send</button>
       </form>
 
-      <h2>Messages</h2>
+      <h2> Sent Messages</h2>
       <ul>
         {messages.map((message) => (
           <li key={message.id}>

@@ -31,7 +31,7 @@ const Schedule = () => {
     acc[schedule.starttime] = acc[schedule.starttime] || {};
     acc[schedule.starttime][schedule.day] = schedule;
     return acc;
-  }, {});
+  }, []);
 
   const handleUpdateSchedule = () => {
     console.log(`Updating schedule with ID ${selectedScheduleId}...`);

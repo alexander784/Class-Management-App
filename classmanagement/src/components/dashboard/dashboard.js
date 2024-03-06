@@ -1,6 +1,6 @@
 import React from 'react';
 import SchoolLogo from '../../images/SchoolLogo.png';
-import profile from '../../images/profile.svg';
+// import profile from '../../images/profile.svg';
 import './dashboard.css';
 import { Route, Routes, Link, Outlet } from 'react-router-dom';
 import { useUser } from '../../UserContext';
@@ -19,6 +19,7 @@ const Dashboard = () => {
 
             <div>
                 <div className='dashboard'>
+                    
                     <header>
                         <div className='logo'>
                             <img src={SchoolLogo} alt='school-logo' />
@@ -30,13 +31,14 @@ const Dashboard = () => {
                             <div className='user-prof-log'>
                                 <p>Hi, <span>{currentUser.username}</span></p>
                                 <div className='logout'>
-                                    <img src={profile} alt='profile' />
+                                    {/* <img src={profile} alt='profile' /> */}
                                     <Link to='/' ><button>Log Out</button></Link>
                                 </div>
 
                             </div>
 
                         </div>
+                        
                     </header>
                     <div className='dash-content'>
                         <aside>
@@ -52,11 +54,18 @@ const Dashboard = () => {
                             </div>
 
                         </aside>
-                        <div className='content'>
-                           
-
+                        
                             <Outlet />
-                        </div>
+
+                            {/* <div className='content'>
+                            <div className='content-container'>
+                            <p>Welcome Back! <br></br>
+                            We are Deligthed to have you.</p>
+
+                            </div>
+                            </div> */}
+
+                       
 
                     </div>
                 </div>

@@ -117,3 +117,10 @@ aside button:hover {
     flex: 1;
 
 }
+.content-container{
+    background-color: aqua;
+    align-items: center;
+    position: absolute;
+    width: 350px;
+    height: 100px;
+}
