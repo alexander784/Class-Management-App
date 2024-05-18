@@ -44,11 +44,11 @@ const Dashboard = () => {
                         <aside>
                             <div className='button-list'>
 
-                                <Link to='/DashBoard'><button>DASHBOARD</button></Link>
-                                <Link to='/DashBoard/subjects'><button>SUBJECTS</button></Link>
-                                <Link to='/DashBoard/grades'><button>GRADES</button></Link>
-                                <Link to='/DashBoard/messages'><button>MESSAGES</button></Link>
-                                <Link to='/DashBoard/schedule'><button>SCHEDULE</button></Link>
+                                {/* <Link to='/DashBoard'><button>DASHBOARD</button></Link> */}
+                                <Link to='/DashBoard/subjects'><button>Courses</button></Link>
+                                <Link to='/DashBoard/grades'><button>Grades</button></Link>
+                                <Link to='/DashBoard/messages'><button>Messages</button></Link>
+                                <Link to='/DashBoard/schedule'><button>Schedule</button></Link>
 
 
                             </div>
