@@ -292,11 +292,22 @@ def manage_message(message_id):
         return jsonify({'message': 'Message deleted'})
     
 
-@app.route('/grades', methods=['GET'])
+@app.route('/grades', methods=['GET','POST'])
 def grades():
-    grades = [grade.to_dict() for grade in Grade.query.all()]
-    return jsonify(grades)
-
+    if request.method == 'GET':
+        grades = [grade.to_dict() for grade in Grade.query.all()]
+        return jsonify(grades)
+    
+    elif request.method == 'POST':
+        data = request.get_json()
+        new_grade = Grade(
+            usersubject=data['usersubject'],
+            grade=data['grade']
+        )
+        db.session.add(new_grade)
+        db.session.commit()
+        return jsonify(new_grade.to_dict()), 201
+       
 
 
 if __name__ == "__main__":

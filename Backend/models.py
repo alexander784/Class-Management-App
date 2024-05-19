@@ -4,6 +4,7 @@ from sqlalchemy_serializer import SerializerMixin
 from alembic import op
 import sqlalchemy as SQLAlchemy
 from extension import db
+from datetime import datetime
 
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -142,7 +143,7 @@ class Grade(db.Model):
     # student_id = db.Column(db.Integer, db.ForeignKey('students.id'), nullable=False)
     usersubject = db.Column(db.Integer, db.ForeignKey('usersubjects.id'), nullable=False)
     grade = db.Column(db.String(5) , nullable=True )
-    created_at = db.Column(db.DateTime() , nullable=False , default=db.func.now)
+    created_at = db.Column(db.DateTime() , nullable=False , default=datetime.utcnow)
 
     def to_dict(self):
         return {
