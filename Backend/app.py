@@ -244,7 +244,7 @@ def manage_schedule(id):
         db.session.commit()
         return make_response(jsonify({'message': 'Schedule deleted successfully'}), 200)
     
-# Handle Schedule
+# Handle Messages
 @app.route('/messages', methods=['GET', 'POST'])
 def manage_messages():
     if request.method == 'GET':
@@ -290,17 +290,12 @@ def manage_message(message_id):
         db.session.delete(message)
         db.session.commit()
         return jsonify({'message': 'Message deleted'})
-
-
-    
-    
-            
-
     
 
-
-
-
+@app.route('/grades', methods=['GET'])
+def grades():
+    grades = [grade.to_dict() for grade in Grade.query.all()]
+    return jsonify(grades)
 
 
 

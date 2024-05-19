@@ -143,7 +143,18 @@ class Grade(db.Model):
     usersubject = db.Column(db.Integer, db.ForeignKey('usersubjects.id'), nullable=False)
     grade = db.Column(db.String(5) , nullable=True )
     created_at = db.Column(db.DateTime() , nullable=False , default=db.func.now)
-    
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'usersubject': self.usersubject,
+            'grade': self.grade,
+            'created_at': self.created_at
+        }
+
+
+
+
 
 class TokenBlockList(db.Model):
     id=db.Column(db.Integer, primary_key=True)
